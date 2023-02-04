@@ -6,7 +6,22 @@ percli is a command line interface for HAVAH specialized for Perplay project.
 
 ### Setup Environment
 
-- dotnet runtime
+#### brew install
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+echo 'export PATH="$PATH:~/percli"' >> ~/.zshrc
+source ~/.zshrc
+
+brew install wget
+brew install zip
+#
+```
+
+#### dotnet runtime
+
+- *note*: typeing root password required to install dotnet runtime
+
 ```
 wget https://dot.net/v1/dotnet-install.sh
 sudo chmod +x ./dotnet-install.sh
@@ -14,11 +29,12 @@ sudo chmod +x ./dotnet-install.sh
 echo 'export PATH="$PATH:$HOME/.dotnet"' >> ~/.zshrc
 source ~/.zshrc
 ```
+
 ### percli
 
 See `https://github.com/perplay-io/percli/tree/main/dist` for latest release.
 
-Get the link of package zip for your platform.
+Download the link of package zip for your platform.
 ex) mac-x64: https://github.com/perplay-io/percli/raw/main/dist/percli_osx-x64/percli_osx-x64.zip
 
 ```
@@ -59,7 +75,7 @@ ERROR(S):
 
 ```
 
-If can't run binary, then you can alias with dotnet
+If can't run binary, then you can alias with dotnet.
 
 ```
 alias percli='dotnet ~/percli/percli.dll'
@@ -69,7 +85,7 @@ alias percli='dotnet ~/percli/percli.dll'
 
 ### basic
 
-#### import your wallet into .wallet path
+#### import your wallet into `~/.wallets` path
 
 You can get your 'private key hexstring' from Havah Wallet chrome/edge Extension.
 
@@ -78,23 +94,27 @@ Account tab -> Get Private Key -> Enter your password -> Copy the hexstring
 
 ex) 8f3a0000000000009d83dbea200000000000000000b3f1a40000000000000450
 
-
+It will produce `wallet private key json file` protected by AES-128 encryption with your new password provided.
+ 
+- note: it's network-independent, just ignore it's 'vega' or 'mainnet'
+ 
 ```bash
 cd ~
-mkdir .wallet
-cd .wallet
+mkdir .wallets
+cd .wallets
 
 MY_PASSWORD=your_password
 MY_PRIVATE_KEY=8f3a0000000000009d83dbea200000000000000000b3f1a40000000000000450
 
-$ percli nwallet $MY_PASSWORD import -k $MY_PRIVATE_KEY
+$ percli nwallet $MY_PASSWORD -k $MY_PRIVATE_KEY
 <vega> https://ctz.vega.havah.io/api/v3
 - KeyWallet file created: 22ddf2ff-f6cc-4ad9-aeff-68795b1aa8c2-hx2bcddd5c771ae3590b38026761b1e7cf36960aac.json
 $ mv 22ddf2ff-f6cc-4ad9-aeff-68795b1aa8c2-hx2bcddd5c771ae3590b38026761b1e7cf36960aac.json mywallet-hx2bcddd5c771ae3590b38026761b1e7cf36960aac.json
 ```
 
-#### show balance
-
+#### displaying HVH PER balance
+ 
+ 
 ```
 # percli hx8eff23fdff7736f05e4fef9e74f253d579025dcd
 <vega> https://ctz.vega.havah.io/api/v3
@@ -107,8 +127,9 @@ HVH: 9.763752400000000000
 ```
 
 #### show balance with vesting intuitive info
+
 ```
-# percli balanceOf hx5846991c8fab7925dd02ce162a69c98d8371dcf2 -V
+# percli balanceOf hx5846991c8fab7925dd02ce162a69c98d8371dcf2 -V -n vega
 <vega> https://ctz.vega.havah.io/api/v3
 hx5846991c8fab7925dd02ce162a69c98d8371dcf2: https://scan.vega.havah.io/address/hx5846991c8fab7925dd02ce162a69c98d8371dcf2
 HVH: 0.000000000000000000
