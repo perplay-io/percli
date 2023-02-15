@@ -222,12 +222,14 @@ percli hx5846991c8fab7925dd02ce162a69c98d8371dcf2
 
 ## mint
 
+```
 VEGA_GENESIS_KEY_JSON=".wallets/vega/hx3cfb0ba9d84846f7ffca09329ab0a162ff9fc0e9-VEGA_PER_GENESIS.json"
 VEGA_GENESIS_PASS=gochain # 미리 콘솔에 넣어두고 변수로 사용한다
 
 MINTEE_ADDR=hx5846991c8fab7925dd02ce162a69c98d8371dcf2
 PER_1=0xde0b6b3a7640000
 PER_100=0x56bc75e2d63100000
+```
 
 ```
 # 숫자를 hex로 변환
@@ -247,6 +249,8 @@ HVH: 1.000000000000000000
 - PER (releasable): 0.000000000000000000
 
 #### 민팅
+
+```
 percli call mint \
     -n vega -c PER \
     "_beneficiary=$MINTEE_ADDR,_value=$PER_100" \
@@ -256,8 +260,11 @@ percli call mint \
 Are you sure? (y/n)
 y
 0x390337bb48656c8da0ef908cbc14ad3caf5bb47cdc10e5f2ac03d9ed20a49d2c
+```
 
 ### 확인
+
+```
 $ percli $MINTEE_ADDR
 <vega> https://ctz.vega.havah.io/api/v3
 KeyWallet Address: hx5846991c8fab7925dd02ce162a69c98d8371dcf2
